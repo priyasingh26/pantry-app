@@ -5,7 +5,6 @@ import {
   TextField,
   Typography,
   Container,
-  Paper,
   Alert,
   InputAdornment,
   IconButton,
@@ -31,7 +30,7 @@ interface LoginFormData {
 }
 
 const SignInPage: React.FC = () => {
-  const { setRole, setCurrentUser } = useAppContext();
+  const { setRole } = useAppContext();
   const [activeTab, setActiveTab] = useState<UserRole>('admin');
   const [formData, setFormData] = useState<LoginFormData>({
     username: '',
@@ -70,12 +69,6 @@ const SignInPage: React.FC = () => {
 
     const cred = credentials[activeTab];
     if (formData.username === cred.username && formData.password === cred.password) {
-      setCurrentUser({
-        id: activeTab === 'admin' ? '1' : '2',
-        username: cred.username,
-        role: activeTab,
-        name: cred.name,
-      });
       setRole(activeTab);
     } else {
       setError('Invalid username or password');
@@ -254,130 +247,3 @@ const SignInPage: React.FC = () => {
 };
 
 export default SignInPage;
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        p: 2
-      }}
-    >
-      <Container maxWidth="sm">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <Paper
-            elevation={24}
-            sx={{
-              p: 4,
-              borderRadius: 4,
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(10px)',
-              textAlign: 'center'
-            }}
-          >
-            <motion.div variants={itemVariants}>
-              <Typography
-                variant="h3"
-                component="h1"
-                gutterBottom
-                sx={{
-                  fontWeight: 800,
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  mb: 2
-                }}
-              >
-                Office Pantry
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{
-                  color: 'text.secondary',
-                  mb: 4,
-                  fontWeight: 400
-                }}
-              >
-                Select your role to continue
-              </Typography>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'center' }}>
-                <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => handleRoleSelect('admin')}
-                    sx={{
-                      minWidth: 200,
-                      py: 2,
-                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      borderRadius: 3,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: '-100%',
-                        width: '100%',
-                        height: '100%',
-                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                        transition: 'left 0.5s',
-                      },
-                      '&:hover::before': {
-                        left: '100%',
-                      },
-                    }}
-                  >
-                    Company Admin
-                  </Button>
-                </motion.div>
-
-                <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => handleRoleSelect('vendor')}
-                    sx={{
-                      minWidth: 200,
-                      py: 2,
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      borderRadius: 3,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: '-100%',
-                        width: '100%',
-                        height: '100%',
-                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                        transition: 'left 0.5s',
-                      },
-                      '&:hover::before': {
-                        left: '100%',
-                      },
-                    }}
-                  >
-                    Vendor
-                  </Button>
-                </motion.div>
-              </Box>
-            </motion.div>
-          </Paper>
-        </motion.div>
-      </Container>
-    </Box>
-  );
-};
-
-export default RoleSelection;
